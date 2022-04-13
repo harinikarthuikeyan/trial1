@@ -17,7 +17,7 @@ CREATE OR REPLACE TABLE bv_employee I18N au_cst (
         address:text (notnull, sourcetypeid = '12', sourcetypesize = '250')
     )
     FOLDER = '/2-base_view'
-    CACHE Full
+    CACHE OFF
     TIMETOLIVEINCACHE DEFAULT
     ADD SEARCHMETHOD employee(
         I18N au_cst
