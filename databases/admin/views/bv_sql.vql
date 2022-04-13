@@ -1,0 +1,31 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_sql
+    DATASOURCENAME=ds_sql
+    CATALOGNAME='${databases.admin.views.jdbc.bv_sql.CATALOGNAME}' 
+    SCHEMANAME='${databases.admin.views.jdbc.bv_sql.SCHEMANAME}' 
+    RELATIONNAME='sql' ESCAPE
+    OUTPUTSCHEMA (
+        id = 'id' :'java.lang.String' (OPT) (sourcetypesize='5', sourcetypeid='12', sourcetypename='varchar')  NOT NULL SORTABLE,
+        name = 'name' :'java.lang.String' (OPT) (sourcetypesize='34', sourcetypeid='12', sourcetypename='varchar')  NOT NULL SORTABLE,
+        date = 'date' :'java.lang.String' (OPT) (sourcetypesize='10', sourcetypeid='-15', sourcetypename='nchar')  ESCAPE SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bv_sql I18N au_cst (
+        id:text (notnull, sourcetypeid = '12', sourcetypesize = '5'),
+        name:text (notnull, sourcetypeid = '12', sourcetypesize = '34'),
+        date:text (sourcetypeid = '-15', sourcetypesize = '10')
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_sql(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD id (any) OPT ANY
+             ADD name (any) OPT ANY
+             ADD date (any) OPT ANY
+        )
+        OUTPUTLIST (date, id, name
+        )
+        WRAPPER (jdbc bv_sql)
+    );
+
