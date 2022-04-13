@@ -11,7 +11,7 @@ CREATE OR REPLACE TABLE new_csv I18N au_cst (
         "Column0":text,
         "Column1":text
     )
-    CACHE OFF
+    CACHE ON
     TIMETOLIVEINCACHE DEFAULT
     ADD SEARCHMETHOD new_csv(
         I18N au_cst
