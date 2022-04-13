@@ -7,11 +7,11 @@
     );
 
 CREATE OR REPLACE TABLE hnnh I18N au_cst (
-        "FILE":text (extern),
+        "FILE":text (extern, description = 'fhkj'),
         "Column0":text,
         "Column1":text
     )
-    CACHE ON
+    CACHE OFF
     TIMETOLIVEINCACHE DEFAULT
     ADD SEARCHMETHOD hnnh(
         I18N au_cst
