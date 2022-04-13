@@ -24,7 +24,7 @@ CREATE OR REPLACE TABLE bv_split I18N au_cst (
         fromdatefromdate_0:text (sourcetypeid = '-15', sourcetypesize = '10'),
         date:blob
     )
-    CACHE OFF
+    CACHE ON
     TIMETOLIVEINCACHE DEFAULT
     ADD SEARCHMETHOD bv_split(
         I18N au_cst
