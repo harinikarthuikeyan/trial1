@@ -1,0 +1,35 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JDBC datasource_1
+    FOLDER = '/1 - data sources'
+    DRIVERCLASSNAME = 'com.vertica.jdbc.Driver'
+    DATABASEURI = '${databases.admin.folder.1 - data sources.datasources.jdbc.datasource_1.DATABASEURI}'
+    USERNAME = '${databases.admin.folder.1 - data sources.datasources.jdbc.datasource_1.USERNAME}'
+    USERPASSWORD = '${databases.admin.folder.1 - data sources.datasources.jdbc.datasource_1.USERPASSWORD}' ${databases.admin.folder.1 - data sources.datasources.jdbc.datasource_1.USERPASSWORD.ENCRYPTED}
+    CLASSPATH = 'vertica-9'
+    DATABASENAME = 'vertica'
+    DATABASEVERSION = '9'
+    FETCHSIZE = 1000
+    VALIDATIONQUERY = 'Select 1'
+    INITIALSIZE = 4
+    MAXIDLE = -1
+    MINIDLE = 0
+    MAXACTIVE = 20
+    EXHAUSTEDACTION = 1
+    TESTONBORROW = true
+    TESTONRETURN = false
+    TESTWHILEIDLE = false
+    TIMEBETWEENEVICTION = -1
+    NUMTESTPEREVICTION = 3
+    MINEVICTABLETIME = 1800000
+    POOLPREPAREDSTATEMENTS = false
+    MAXOPENPREPAREDSTATEMENTS = -1
+    DATA_LOAD_CONFIGURATION (
+        BATCHINSERTSIZE = 200
+        USEEXTERNALTABLES ( 
+            ONMOVEREAD = false,
+            ONMOVEWRITE = true
+        )
+    )
+    PROCESSING_UNITS = 12
+    CPUS_PER_PROCESSING_UNIT = 8;
+

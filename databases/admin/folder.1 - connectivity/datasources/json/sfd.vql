@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE DATASOURCE JSON sfd
+    FOLDER = '/1 - connectivity'
+    ROUTE LOCAL 'VariableConnection' 'gfjg'
+    IGNORE_ROUTE_ERRORS = TRUE;
+

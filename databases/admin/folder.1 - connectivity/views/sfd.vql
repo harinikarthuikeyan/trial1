@@ -1,0 +1,28 @@
+﻿CREATE OR REPLACE WRAPPER JSON sfd
+    FOLDER = '/1 - connectivity'
+    DATASOURCENAME=sfd
+    TUPLEROOT '/JSONFile'
+    OUTPUTSCHEMA ("JSONFile" = 'JSONFile' : REGISTER OF (
+        "GFJG" = 'GFJG' : 'java.lang.String' (OBL) (DEFAULTVALUE='7') EXTERN,
+        field = 'field' : 'java.lang.Integer'
+    )
+    );
+
+CREATE OR REPLACE TABLE sfd I18N au_cst (
+        "GFJG":text (extern),
+        field:int
+    )
+    FOLDER = '/1 - connectivity'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD sfd(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD "GFJG" (=) OBL ONE
+             ADD field NOS ZERO ()
+        )
+        OUTPUTLIST (field
+        )
+        WRAPPER (json sfd)
+    );
+
