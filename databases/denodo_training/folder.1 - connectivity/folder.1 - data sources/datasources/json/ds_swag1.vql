@@ -1,0 +1,5 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JSON ds_swag1
+    FOLDER = '/1 - connectivity/1 - data sources'
+    ROUTE LOCAL 'LocalConnection' '${databases.denodo_training.folder.1 - connectivity.folder.1 - data sources.datasources.json.ds_swag1.ROUTE.LOCAL.PATH}';
+

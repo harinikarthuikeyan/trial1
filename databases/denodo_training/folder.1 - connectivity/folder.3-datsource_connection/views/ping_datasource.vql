@@ -1,0 +1,2 @@
+﻿CREATE OR REPLACE VIEW ping_datasource FOLDER = '/1 - connectivity/3-datsource_connection' AS SELECT data_source_name, data_source_type, database_name, status, down_cause FROM ping_data_source() CONTEXT ('I18N' = 'au_cst');
+

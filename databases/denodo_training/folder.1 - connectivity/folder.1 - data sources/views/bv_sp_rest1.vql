@@ -1,0 +1,65 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_sp_rest1
+    FOLDER = '/1 - connectivity/1 - data sources'
+    DATASOURCENAME=ds_mssql
+    SQLSENTENCE='desc view "@input_database_name"."@input_view_name"'   
+    OUTPUTSCHEMA (
+        fieldname = 'fieldname' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='65536', sourcetypeid='12', sourcetypename='VARCHAR')  NOT NULL SORTABLE NOT UPDATEABLE,
+        fieldtype = 'fieldtype' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='65536', sourcetypeid='12', sourcetypename='VARCHAR')  NOT NULL SORTABLE NOT UPDATEABLE,
+        "fieldTypeCode" = 'fieldTypeCode' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='65536', sourcetypeid='12', sourcetypename='VARCHAR')  NOT NULL SORTABLE NOT UPDATEABLE,
+        "fieldPrecision" = 'fieldPrecision' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='65536', sourcetypeid='12', sourcetypename='VARCHAR')  NOT NULL SORTABLE NOT UPDATEABLE,
+        "fieldDecimals" = 'fieldDecimals' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='65536', sourcetypeid='12', sourcetypename='VARCHAR')  NOT NULL SORTABLE NOT UPDATEABLE,
+        "fieldRadix" = 'fieldRadix' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='65536', sourcetypeid='12', sourcetypename='VARCHAR')  NOT NULL SORTABLE NOT UPDATEABLE,
+        "isPrimaryKey" = 'isPrimaryKey' :'java.lang.Boolean' (sourcetypedecimals='0', sourcetypesize='1', sourcetypeid='16', sourcetypename='BOOLEAN')  NOT NULL NOT SORTABLE NOT UPDATEABLE,
+        "isNotNull" = 'isNotNull' :'java.lang.Boolean' (sourcetypedecimals='0', sourcetypesize='1', sourcetypeid='16', sourcetypename='BOOLEAN')  NOT NULL NOT SORTABLE NOT UPDATEABLE,
+        "isUnique" = 'isUnique' :'java.lang.Boolean' (sourcetypedecimals='0', sourcetypesize='1', sourcetypeid='16', sourcetypename='BOOLEAN')  NOT NULL NOT SORTABLE NOT UPDATEABLE,
+        "isAutoincrement" = 'isAutoincrement' :'java.lang.Boolean' (sourcetypedecimals='0', sourcetypesize='1', sourcetypeid='16', sourcetypename='BOOLEAN')  NOT NULL NOT SORTABLE NOT UPDATEABLE,
+        "isGeneratedColumn" = 'isGeneratedColumn' :'java.lang.Boolean' (sourcetypedecimals='0', sourcetypesize='1', sourcetypeid='16', sourcetypename='BOOLEAN')  NOT NULL NOT SORTABLE NOT UPDATEABLE,
+        "INPUT_VIEW_NAME" = 'INPUT_VIEW_NAME' :'java.lang.String' (OBL) (DEFAULTVALUE='bv_sql4coursedetails_copy')  EXTERN SORTABLE,
+        "INPUT_DATABASE_NAME" = 'INPUT_DATABASE_NAME' :'java.lang.String' (OBL) (DEFAULTVALUE='test')  EXTERN SORTABLE
+    )
+    SOURCECONFIGURATION (
+        delegatesqlsentenceassubquery = false,
+        datainorderfieldslist = ()
+    );
+
+CREATE OR REPLACE TABLE bv_sp_rest1 I18N us_pst (
+        fieldname:text (notnull, sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '65536'),
+        fieldtype:text (notnull, sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '65536'),
+        "fieldTypeCode":text (notnull, sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '65536'),
+        "fieldPrecision":text (notnull, sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '65536'),
+        "fieldDecimals":text (notnull, sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '65536'),
+        "fieldRadix":text (notnull, sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '65536'),
+        "isPrimaryKey":boolean (notnull, sourcetypeid = '16', sourcetypedecimals = '0', sourcetypesize = '1'),
+        "isNotNull":boolean (notnull, sourcetypeid = '16', sourcetypedecimals = '0', sourcetypesize = '1'),
+        "isUnique":boolean (notnull, sourcetypeid = '16', sourcetypedecimals = '0', sourcetypesize = '1'),
+        "isAutoincrement":boolean (notnull, sourcetypeid = '16', sourcetypedecimals = '0', sourcetypesize = '1'),
+        "isGeneratedColumn":boolean (notnull, sourcetypeid = '16', sourcetypedecimals = '0', sourcetypesize = '1'),
+        "INPUT_VIEW_NAME":text (extern),
+        "INPUT_DATABASE_NAME":text (extern)
+    )
+    FOLDER = '/1 - connectivity/1 - data sources'
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_sp_rest1(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD fieldname NOS ZERO ()
+             ADD fieldtype NOS ZERO ()
+             ADD "fieldTypeCode" NOS ZERO ()
+             ADD "fieldPrecision" NOS ZERO ()
+             ADD "fieldDecimals" NOS ZERO ()
+             ADD "fieldRadix" NOS ZERO ()
+             ADD "isPrimaryKey" NOS ZERO ()
+             ADD "isNotNull" NOS ZERO ()
+             ADD "isUnique" NOS ZERO ()
+             ADD "isAutoincrement" NOS ZERO ()
+             ADD "isGeneratedColumn" NOS ZERO ()
+             ADD "INPUT_VIEW_NAME" (=) OBL ONE
+             ADD "INPUT_DATABASE_NAME" (=) OBL ONE
+        )
+        OUTPUTLIST ("fieldDecimals", "fieldPrecision", "fieldRadix", "fieldTypeCode", fieldname, fieldtype, "isAutoincrement", "isGeneratedColumn", "isNotNull", "isPrimaryKey", "isUnique"
+        )
+        WRAPPER (jdbc bv_sp_rest1)
+    );
+

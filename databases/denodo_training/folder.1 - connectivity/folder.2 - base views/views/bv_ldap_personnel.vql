@@ -1,0 +1,36 @@
+﻿CREATE OR REPLACE WRAPPER LDAP bv_ldap_personnel
+    FOLDER = '/1 - connectivity/2 - base views'
+    DATASOURCENAME=ds_local_ldap
+    LDAPEXPRESSION='(&(objectClass=user)(objectClass=person))(!(objectClass=computer))'   
+    RECURSIVESEARCH=TRUE
+    SINGLE-VALUE=FALSE
+    OUTPUTSCHEMA (
+        cn = 'cn' : ARRAY OF (
+            cn = 'CN' : REGISTER OF (
+                cn = 'cn' : 'java.lang.String'
+            )
+        )
+    );
+
+CREATE OR REPLACE TYPE bv_ldap_personnel_cn_cn AS REGISTER OF (cn:text);
+
+CREATE OR REPLACE TYPE bv_ldap_personnel_cn AS ARRAY OF bv_ldap_personnel_cn_cn;
+
+CREATE OR REPLACE TABLE bv_ldap_personnel I18N au_cst (
+        cn:bv_ldap_personnel_cn
+    )
+    FOLDER = '/1 - connectivity/2 - base views'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_ldap_personnel(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD cn NOS ZERO ()
+             ADD cn NOS ZERO ()
+             ADD cn.cn NOS ZERO ()
+        )
+        OUTPUTLIST (cn
+        )
+        WRAPPER (ldap bv_ldap_personnel)
+    );
+

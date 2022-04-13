@@ -1,0 +1,35 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_sp_rest
+    FOLDER = '/1 - connectivity/1 - data sources'
+    DATASOURCENAME=ds_mssql
+    SQLSENTENCE='desc vql view "@input_database_name"."@input_view_name" (''includeDependencies''=''no'',''includeProperties''=''no'',''dropElements''=''no'')'   
+    OUTPUTSCHEMA (
+        result = 'result' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='65536', sourcetypeid='12', sourcetypename='VARCHAR')  ESCAPE NOT NULL SORTABLE NOT UPDATEABLE,
+        "INPUT_VIEW_NAME" = 'INPUT_VIEW_NAME' :'java.lang.String' (OBL) (DEFAULTVALUE='bv_sql4coursedetails_copy')  EXTERN SORTABLE,
+        "INPUT_DATABASE_NAME" = 'INPUT_DATABASE_NAME' :'java.lang.String' (OBL) (DEFAULTVALUE='test')  EXTERN SORTABLE
+    )
+    SOURCECONFIGURATION (
+        delegatesqlsentenceassubquery = false,
+        datainorderfieldslist = ()
+    );
+
+CREATE OR REPLACE TABLE bv_sp_rest I18N us_pst (
+        result:text (notnull, sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '65536'),
+        "INPUT_VIEW_NAME":text (extern),
+        "INPUT_DATABASE_NAME":text (extern)
+    )
+    FOLDER = '/1 - connectivity/1 - data sources'
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_sp_rest(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD result NOS ZERO ()
+             ADD "INPUT_VIEW_NAME" (=) OBL ONE
+             ADD "INPUT_DATABASE_NAME" (=) OBL ONE
+        )
+        OUTPUTLIST (result
+        )
+        WRAPPER (jdbc bv_sp_rest)
+    );
+

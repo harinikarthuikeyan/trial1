@@ -1,0 +1,27 @@
+﻿CREATE OR REPLACE WRAPPER DF new_csv
+    DATASOURCENAME=new_csv
+    OUTPUTSCHEMA (
+        "FILE" = 'FILE' (OBL) (DEFAULTVALUE='new1.csv') EXTERN,
+        "Column0" = 'Column0' (OPT),
+        "Column1" = 'Column1' (OPT)
+    );
+
+CREATE OR REPLACE TABLE new_csv I18N au_cst (
+        "FILE":text (extern),
+        "Column0":text,
+        "Column1":text
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD new_csv(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD "Column0" (any) OPT ANY
+             ADD "Column1" (any) OPT ANY
+             ADD "FILE" (=) OBL ONE
+        )
+        OUTPUTLIST ("Column0", "Column1"
+        )
+        WRAPPER (df new_csv)
+    );
+

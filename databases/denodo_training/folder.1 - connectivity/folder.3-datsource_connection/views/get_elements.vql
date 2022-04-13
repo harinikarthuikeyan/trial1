@@ -1,0 +1,2 @@
+﻿CREATE OR REPLACE VIEW get_elements FOLDER = '/1 - connectivity/3-datsource_connection' AS SELECT * FROM get_elements() CONTEXT ('I18N' = 'au_cst');
+
