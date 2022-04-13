@@ -1,0 +1,29 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JDBC ds_cache
+    FOLDER = '/1-connectivity'
+    DRIVERCLASSNAME = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
+    DATABASEURI = '${databases.cache.folder.1-connectivity.datasources.jdbc.ds_cache.DATABASEURI}'
+    USERNAME = '${databases.cache.folder.1-connectivity.datasources.jdbc.ds_cache.USERNAME}'
+    USERPASSWORD = '${databases.cache.folder.1-connectivity.datasources.jdbc.ds_cache.USERPASSWORD}' ${databases.cache.folder.1-connectivity.datasources.jdbc.ds_cache.USERPASSWORD.ENCRYPTED}
+    CLASSPATH = 'mssql-jdbc-7.x'
+    DATABASENAME = 'sqlserver'
+    DATABASEVERSION = '2017'
+    FETCHSIZE = 1000
+    VALIDATIONQUERY = ''
+    INITIALSIZE = 4
+    MAXIDLE = -1
+    MINIDLE = 0
+    MAXACTIVE = 20
+    EXHAUSTEDACTION = 1
+    TESTONBORROW = false
+    TESTONRETURN = false
+    TESTWHILEIDLE = false
+    TIMEBETWEENEVICTION = -1
+    NUMTESTPEREVICTION = 3
+    MINEVICTABLETIME = 1800000
+    POOLPREPAREDSTATEMENTS = false
+    MAXOPENPREPAREDSTATEMENTS = -1
+    DATA_LOAD_CONFIGURATION (
+        BATCHINSERTSIZE = 1000
+    );
+

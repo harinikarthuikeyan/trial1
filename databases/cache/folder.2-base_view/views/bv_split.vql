@@ -1,0 +1,54 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bv_split
+    FOLDER = '/2-base_view'
+    DATASOURCENAME=ds_cache
+    CATALOGNAME='${databases.cache.folder.2-base_view.views.jdbc.bv_split.CATALOGNAME}' 
+    SCHEMANAME='${databases.cache.folder.2-base_view.views.jdbc.bv_split.SCHEMANAME}' 
+    RELATIONNAME='split' 
+    OUTPUTSCHEMA (
+        adrress = 'adrress' :'java.lang.String' (OPT) (sourcetypesize='50', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        name = 'name' :'java.lang.String' (OPT) (sourcetypesize='76', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        id = 'id' :'java.lang.String' (OPT) (sourcetypesize='10', sourcetypeid='-15', sourcetypename='nchar')  SORTABLE,
+        number = 'number' :'java.lang.String' (OPT) (sourcetypesize='10', sourcetypeid='-15', sourcetypename='nchar')  SORTABLE,
+        aadhar = 'aadhar' :'java.lang.String' (OPT) (sourcetypesize='10', sourcetypeid='-15', sourcetypename='nchar')  SORTABLE,
+        "fromdate
+fromdate()" = 'fromdate
+fromdate()' :'java.lang.String' (OPT) (sourcetypesize='10', sourcetypeid='-15', sourcetypename='nchar')  ESCAPE SORTABLE,
+        date = 'date' :'java.sql.Blob' (OPT) (sourcetypesize='8', sourcetypeid='-2', sourcetypename='timestamp')  ESCAPE SORTABLE
+    )
+    SOURCECONFIGURATION (
+        datainorderfieldslist = ()
+    );
+
+CREATE OR REPLACE TABLE bv_split I18N gr_euro (
+        adrress:text (sourcetypeid = '12', sourcetypesize = '50'),
+        name:text (sourcetypeid = '12', sourcetypesize = '76'),
+        id:text (sourcetypeid = '-15', sourcetypesize = '10'),
+        number:text (sourcetypeid = '-15', sourcetypesize = '10'),
+        aadhar:text (sourcetypeid = '-15', sourcetypesize = '10'),
+        "fromdate
+fromdate()":text (sourcetypeid = '-15', sourcetypesize = '10'),
+        date:blob
+    )
+    FOLDER = '/2-base_view'
+    CACHE FULL
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_split(
+        I18N gr_euro
+        CONSTRAINTS (
+             ADD adrress (any) OPT ANY
+             ADD name (any) OPT ANY
+             ADD id (any) OPT ANY
+             ADD number (any) OPT ANY
+             ADD aadhar (any) OPT ANY
+             ADD "fromdate
+fromdate()" (any) OPT ANY
+             ADD date NOS ZERO ()
+        )
+        OUTPUTLIST (aadhar, adrress, date, "fromdate
+fromdate()", id, name, number
+        )
+        WRAPPER (jdbc bv_split)
+    );
+

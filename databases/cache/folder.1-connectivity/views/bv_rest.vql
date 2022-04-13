@@ -1,0 +1,27 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_rest
+    FOLDER = '/1-connectivity'
+    DATASOURCENAME=ds_denodo
+    SQLSENTENCE='select * from cache.bv_cache_1 CONTEXT (''i18n''=''rs_restful'', ''cache_wait_for_load''=''true'')'   
+    OUTPUTSCHEMA (
+        id = 'id' :'java.lang.Integer' (sourcetypedecimals='0', sourcetypesize='10', sourcetypeid='4', sourcetypename='INTEGER')  NOT NULL SORTABLE NOT UPDATEABLE,
+        date = 'date' :'java.time.LocalDateTime' (sourcetypedecimals='7', sourcetypesize='27', sourcetypeid='93', sourcetypename='TIMESTAMP')  ESCAPE NOT NULL SORTABLE NOT UPDATEABLE
+    );
+
+CREATE OR REPLACE TABLE bv_rest I18N rfc_restful (
+        id:int (notnull, sourcetypeid = '4', sourcetypedecimals = '0', sourcetypesize = '10'),
+        date:timestamp (notnull, sourcetypeid = '93', sourcetypedecimals = '7', sourcetypesize = '27')
+    )
+    FOLDER = '/1-connectivity'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_rest(
+        I18N rfc_restful
+        CONSTRAINTS (
+             ADD id NOS ZERO ()
+             ADD date NOS ZERO ()
+        )
+        OUTPUTLIST (date, id
+        )
+        WRAPPER (jdbc bv_rest)
+    );
+

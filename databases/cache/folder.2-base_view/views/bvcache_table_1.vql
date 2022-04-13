@@ -1,0 +1,33 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC bvcache_table_1
+    FOLDER = '/2-base_view'
+    DATASOURCENAME=ds_cache
+    CATALOGNAME='${databases.cache.folder.2-base_view.views.jdbc.bvcache_table_1.CATALOGNAME}' 
+    SCHEMANAME='${databases.cache.folder.2-base_view.views.jdbc.bvcache_table_1.SCHEMANAME}' 
+    RELATIONNAME='cache_table_1' 
+    OUTPUTSCHEMA (
+        id = 'id' :'java.lang.Integer' (OPT) (sourcetypedecimals='0', sourcetyperadix='10', sourcetypesize='10', sourcetypeid='4', sourcetypename='int')  NOT NULL SORTABLE,
+        date = 'date' :'java.time.LocalDateTime' (OPT) (sourcetypedecimals='7', sourcetypesize='27', sourcetypeid='93', sourcetypename='datetime2')  ESCAPE SORTABLE
+    );
+
+CREATE OR REPLACE TABLE bvcache_table_1 I18N us_pst (
+        id:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
+        date:timestamp (sourcetypeid = '93', sourcetypedecimals = '7', sourcetypesize = '27')
+    )
+    FOLDER = '/2-base_view'
+    PRIMARY KEY ( 'id' )
+    CACHE OFF
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bvcache_table_1(
+        I18N us_pst
+        CONSTRAINTS (
+             ADD id (any) OPT ANY
+             ADD date (any) OPT ANY
+        )
+        OUTPUTLIST (date, id
+        )
+        WRAPPER (jdbc bvcache_table_1)
+    )
+    DECLARE VIEW INDEX unique UNIQUE  ON (id);
+

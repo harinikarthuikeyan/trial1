@@ -1,0 +1,7 @@
+﻿CREATE OR REPLACE VIEW iv_deriived FOLDER = '/2-base_view' AS SELECT bv_split.name AS name, bv_split.id AS id, bv_split."fromdate
+fromdate()" AS "fromdate
+fromdate()", bv_split1.adrress AS adrress, bv_split1.trim AS trim, bv_split1.number AS number, bv_split1.aadhar AS aadhar, bv_split1.date AS date FROM bv_split AS bv_split INNER JOIN bv_split1 AS bv_split1 ON bv_split.date = bv_split1.date  CONTEXT ('I18N' = 'au_cst');
+
+ALTER VIEW iv_deriived
+ LAYOUT (bv_split = [20, 20, 200, 165], bv_split1 = [329, 156, 200, 125]);
+

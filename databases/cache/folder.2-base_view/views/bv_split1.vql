@@ -1,0 +1,2 @@
+﻿CREATE OR REPLACE VIEW bv_split1 FOLDER = '/2-base_view' AS SELECT adrress, trim(id), number, aadhar, date FROM bv_split CONTEXT ('I18N' = 'au_cst');
+

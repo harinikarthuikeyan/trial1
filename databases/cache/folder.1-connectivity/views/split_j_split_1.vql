@@ -1,0 +1,7 @@
+﻿CREATE OR REPLACE VIEW split_j_split_1 FOLDER = '/1-connectivity' AS SELECT split.name AS name, split.id AS id, split.number AS number, split.aadhar AS aadhar, split."fromdate
+fromdate()" AS "fromdate
+fromdate()", split.date AS date, split_1.adrress AS adrress FROM split AS split, split_1 AS split_1 CONTEXT ('I18N' = 'us_pst');
+
+ALTER VIEW split_j_split_1
+ LAYOUT (split = [20, 20, 200, 165], split_1 = [399, 45, 200, 165]);
+

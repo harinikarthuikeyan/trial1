@@ -1,0 +1,8 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE DF ds_ss
+    FOLDER = '/1-connectivity'
+    ROUTE LOCAL 'LocalConnection' '${databases.cache.folder.1-connectivity.datasources.df.ds_ss.ROUTE.LOCAL.PATH}'
+    COLUMNDELIMITER = ','
+    ENDOFLINEDELIMITER = '\n'
+    HEADER = TRUE;
+

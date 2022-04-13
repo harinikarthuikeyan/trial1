@@ -1,0 +1,32 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC remote_bv_employee
+    FOLDER = '/2-base_view'
+    DATASOURCENAME=ds_cache
+    CATALOGNAME='${databases.cache.folder.2-base_view.views.jdbc.remote_bv_employee.CATALOGNAME}' 
+    SCHEMANAME='${databases.cache.folder.2-base_view.views.jdbc.remote_bv_employee.SCHEMANAME}' 
+    RELATIONNAME='bv_employee_remote' 
+    OUTPUTSCHEMA (
+        name = 'name' :'java.lang.String' (OPT) (sourcetypesize='50', sourcetypeid='12', sourcetypename='varchar')  SORTABLE,
+        address = 'address' :'java.lang.String' (OPT) (sourcetypesize='250', sourcetypeid='12', sourcetypename='varchar')  SORTABLE
+    );
+
+CREATE OR REPLACE TABLE remote_bv_employee I18N au_cst (
+        name:text (sourcetypeid = '12', sourcetypesize = '50'),
+        address:text (sourcetypeid = '12', sourcetypesize = '250')
+    )
+    FOLDER = '/2-base_view'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD remote_bv_employee(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD name (any) OPT ANY
+             ADD address (any) OPT ANY
+        )
+        OUTPUTLIST (address, name
+        )
+        WRAPPER (jdbc remote_bv_employee)
+    )
+    DATA_LOAD_QUERY = 'SELECT name, address
+FROM cache.bv_employee';
+

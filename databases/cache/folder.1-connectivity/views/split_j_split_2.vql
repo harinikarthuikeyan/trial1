@@ -1,0 +1,7 @@
+﻿CREATE OR REPLACE VIEW split_j_split_2 FOLDER = '/1-connectivity' AS SELECT split.name AS name, split.id AS id, split.number AS number, split.aadhar AS aadhar, split."fromdate
+fromdate()" AS "fromdate
+fromdate()", split.date AS date, split_2.adrress AS adrress FROM split AS split INNER JOIN split_2 AS split_2 ON split.id = split_2.id ;
+
+ALTER VIEW split_j_split_2
+ LAYOUT (split = [20, 20, 200, 165], split_2 = [375, 66, 200, 165]);
+
