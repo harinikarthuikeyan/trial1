@@ -14,7 +14,7 @@ CREATE OR REPLACE TABLE bv_cache_1 I18N rfc_restful (
         id:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypedecimals = '0', sourcetypesize = '10'),
         date:timestamp (sourcetypeid = '93', sourcetypedecimals = '7', sourcetypesize = '27')
     )
-    FOLDER = '/1-connectivity'
+    FOLDER = '/1-connectivity1'
     CACHE OFF
     BATCHSIZEINCACHE DEFAULT
     TIMETOLIVEINCACHE DEFAULT
