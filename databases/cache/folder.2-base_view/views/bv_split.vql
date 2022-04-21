@@ -31,7 +31,7 @@ fromdate()":text (sourcetypeid = '-15', sourcetypesize = '10'),
         date:blob
     )
     FOLDER = '/2-base_view'
-    CACHE FULL
+    CACHE off
     BATCHSIZEINCACHE DEFAULT
     TIMETOLIVEINCACHE DEFAULT
     ADD SEARCHMETHOD bv_split(
