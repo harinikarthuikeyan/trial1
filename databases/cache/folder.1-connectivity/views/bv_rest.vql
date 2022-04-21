@@ -12,7 +12,7 @@ CREATE OR REPLACE TABLE bv_rest I18N rfc_restful (
         date:timestamp (notnull, sourcetypeid = '93', sourcetypedecimals = '7', sourcetypesize = '27')
     )
     FOLDER = '/1-connectivity'
-    CACHE OFF
+    CACHE ON
     TIMETOLIVEINCACHE DEFAULT
     ADD SEARCHMETHOD bv_rest(
         I18N rfc_restful
